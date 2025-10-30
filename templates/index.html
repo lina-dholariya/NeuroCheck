@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCheck - Mental Health Monitoring Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="logo">
+                <span>NeuroCheck</span>
+            </a>
+            <nav class="nav">
+                <a href="/login" class="nav-link">Sign In</a>
+                <a href="/signup" class="nav-link signup-btn">Get Started</a>
+            </nav>
+        </header>
+        
+        <main class="main-content">
+            <section class="hero-section">
+                <h1 class="hero-title">Your Mental Health Journey Starts Here</h1>
+                <p class="hero-subtitle">Comprehensive mental health monitoring and wellness tracking platform designed to support your emotional well-being with professional insights and personalized recommendations.</p>
+                <div class="cta-buttons">
+                    <a href="/login" class="btn btn-primary">Start Your Journey</a>
+                    <a href="/signup" class="btn btn-secondary">Create Account</a>
+                </div>
+            </section>
+            
+            <section class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">💙</div>
+                    <h3>Mental Wellness Tracking</h3>
+                    <p>Monitor your emotional well-being with comprehensive assessment tools and track your progress over time with detailed analytics.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Gain insights into your mental health patterns with sophisticated analytics and personalized recommendations based on your data.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy & Security</h3>
+                    <p>Your sensitive data is protected with enterprise-grade security measures and strict privacy controls to ensure complete confidentiality.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html> 

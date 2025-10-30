@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Results - NeuroCheck</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .result-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(66, 153, 225, 0.3);
+        }
+        
+        .severity-badge {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .severity-minimal { background: linear-gradient(135deg, #48bb78, #38a169); }
+        .severity-mild { background: linear-gradient(135deg, #ed8936, #dd6b20); }
+        .severity-moderate { background: linear-gradient(135deg, #f56565, #e53e3e); }
+        .severity-high { background: linear-gradient(135deg, #e53e3e, #c53030); }
+        
+        .confidence-meter {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .confidence-bar {
+            background: rgba(255,255,255,0.2);
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78, #68d391);
+            transition: width 1s ease-in-out;
+        }
+        
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .analysis-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .analysis-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-container {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .chart-container img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .chart-modal-content {
+            position: relative;
+            margin: 2% auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .chart-modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #718096;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.2s ease;
+        }
+        
+        .close-modal:hover {
+            color: #2d3748;
+        }
+        
+        .chart-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .model-comparison {
+            background: #f7fafc;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .model-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin: 15px 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .recommendation-box {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 30px 0;
+            box-shadow: 0 8px 24px rgba(66, 153, 225, 0.3);
+        }
+        
+        .risk-factors-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .risk-factor-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin: 8px 0;
+            background: #f7fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .risk-level {
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .risk-low { background: #48bb78; color: white; }
+        .risk-medium { background: #ed8936; color: white; }
+        .risk-high { background: #f56565; color: white; }
+        
+        .disclaimer {
+            background: #fef5e7;
+            border: 1px solid #fed7aa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .action-buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .model-row {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="logo">
+                <span>NeuroCheck</span>
+            </a>
+            <nav class="nav">
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <a href="/logout" class="nav-link">Sign Out</a>
+            </nav>
+        </header>
+        
+        <main class="main-content">
+            <div class="result-container">
+                <!-- Header Section -->
+                <div class="result-header">
+                    <h1>Your Mental Health Assessment Results</h1>
+                    <p>Comprehensive analysis using advanced machine learning models</p>
+                    
+                    <div class="severity-badge severity-{{ prediction_result.severity_level.lower() }}">
+                        {{ prediction_result.severity_level }} Risk Level
+                    </div>
+                    
+                    <div class="confidence-meter">
+                        <h4>Model Confidence: {{ "%.1f"|format(prediction_result.ensemble_confidence) }}%</h4>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" style="width: {{ prediction_result.ensemble_confidence }}%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model Comparison -->
+                <div class="model-comparison">
+                    <h3>🤖 Machine Learning Model Analysis</h3>
+                    <div class="model-row">
+                        <div>
+                            <strong>Logistic Regression Model</strong>
+                            <p>Prediction: {{ ['Minimal', 'Mild', 'Moderate', 'High'][prediction_result.logistic_prediction] }}</p>
+                        </div>
+                        <div>
+                            <strong>Confidence: {{ "%.1f"|format(prediction_result.logistic_confidence) }}%</strong>
+                        </div>
+                    </div>
+                    <div class="model-row">
+                        <div>
+                            <strong>Random Forest Model</strong>
+                            <p>Prediction: {{ ['Minimal', 'Mild', 'Moderate', 'High'][prediction_result.random_forest_prediction] }}</p>
+                        </div>
+                        <div>
+                            <strong>Confidence: {{ "%.1f"|format(prediction_result.random_forest_confidence) }}%</strong>
+                        </div>
+                    </div>
+                    <div class="model-row" style="background: linear-gradient(135deg, #4299e1, #3182ce); color: white;">
+                        <div>
+                            <strong>Ensemble Prediction (Combined)</strong>
+                            <p>Final Assessment: {{ prediction_result.severity_level }}</p>
+                        </div>
+                        <div>
+                            <strong>Overall Confidence: {{ "%.1f"|format(prediction_result.ensemble_confidence) }}%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Grid -->
+                <div class="analysis-grid">
+                    <!-- Wellness Factor Analysis -->
+                    <div class="analysis-card">
+                        <h3>📊 Wellness Factor Analysis</h3>
+                        <p>Analysis of various wellness factors affecting your mental health. <strong>Click on charts to view them larger!</strong></p>
+                        
+                        <ul class="risk-factors-list">
+                            {% for factor, value in risk_factors.items() %}
+                            <li class="risk-factor-item">
+                                <span>{{ factor }}</span>
+                                <span class="risk-level 
+                                    {% if factor == 'Stress Level' %}
+                                        {% if value < 30 %}risk-low{% elif value < 60 %}risk-medium{% else %}risk-high{% endif %}
+                                    {% else %}
+                                        {% if value >= 70 %}risk-low{% elif value >= 40 %}risk-medium{% else %}risk-high{% endif %}
+                                    {% endif %}">
+                                    {{ "%.0f"|format(value) }}%
+                                </span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        
+                        <div class="chart-container">
+                            <img src="data:image/png;base64,{{ risk_chart }}" alt="Wellness Factor Analysis Chart" onclick="openChartModal('wellness-chart', 'Wellness Factor Analysis')">
+                            <p style="text-align: center; margin-top: 10px; color: #718096; font-size: 0.9rem;">Click to enlarge</p>
+                        </div>
+                    </div>
+
+                    <!-- Treatment Recommendation -->
+                    <div class="analysis-card">
+                        <h3>💊 Treatment Recommendation</h3>
+                        <p>Based on your assessment results. <strong>Click on charts to view them larger!</strong></p>
+                        
+                        <div class="recommendation-box">
+                            <h4>{% if treatment_data.treatment_needed %}Treatment Recommended{% else %}No Treatment Needed{% endif %}</h4>
+                            <p><strong>Confidence:</strong> {{ "%.1f"|format(treatment_data.confidence) }}%</p>
+                            <p>{{ treatment_data.recommendation }}</p>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <img src="data:image/png;base64,{{ treatment_chart }}" alt="Treatment Recommendation Chart" onclick="openChartModal('treatment-chart', 'Treatment Recommendation')">
+                            <p style="text-align: center; margin-top: 10px; color: #718096; font-size: 0.9rem;">Click to enlarge</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Analysis -->
+                <div class="analysis-card">
+                    <h3>🔍 Detailed Assessment Breakdown</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div>
+                            <h4>Lifestyle Factors</h4>
+                            <ul>
+                                <li><strong>Sleep:</strong> {{ user_data.sleep_hours }} hours/night</li>
+                                <li><strong>Screen Time:</strong> {{ user_data.screen_time }} hours/day</li>
+                                <li><strong>Diet Quality:</strong> {{ ['Poor', 'Average', 'Good', 'Excellent'][user_data.diet|int] }}</li>
+                                <li><strong>Exercise:</strong> {{ ['Rarely', '1-2x/week', '3-4x/week', '5+x/week'][user_data.exercise|int] }}</li>
+                                <li><strong>Social Activity:</strong> {{ ['Isolated', 'Some Interaction', 'Socially Active'][user_data.social_activity|int] }}</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Emotional Well-being</h4>
+                            <ul>
+                                <li><strong>General Mood:</strong> {{ ['Sad/Anxious', 'Neutral', 'Happy/Calm'][user_data.mood|int] }}</li>
+                                <li><strong>Anxiety Symptoms:</strong> {{ user_data.anxiety1|int + user_data.anxiety2|int }}/6</li>
+                                <li><strong>Depression Symptoms:</strong> {{ user_data.depression1|int + user_data.depression2|int }}/6</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <h4>⚠️ Important Disclaimer</h4>
+                    <p><strong>This assessment is not a diagnostic tool and should not replace professional medical advice.</strong></p>
+                    <p>The results are based on machine learning analysis of your responses and are for informational purposes only. 
+                    If you're experiencing mental health concerns, please consult with a qualified healthcare professional.</p>
+                    <p><strong>For immediate help:</strong> Contact a mental health professional or call a crisis hotline in your area.</p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <div class="btn-group">
+                        <a href="/dashboard" class="btn btn-primary">Back to Dashboard</a>
+                        <a href="/profile" class="btn btn-secondary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chart Modal -->
+    <div id="chartModal" class="chart-modal">
+        <div class="chart-modal-content">
+            <span class="close-modal" onclick="closeChartModal()">&times;</span>
+            <div class="chart-title" id="modalChartTitle"></div>
+            <img id="modalChartImage" src="" alt="Enlarged Chart">
+        </div>
+    </div>
+
+    <script>
+        // Animate confidence bars on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const confidenceFill = document.querySelector('.confidence-fill');
+            const targetWidth = confidenceFill.style.width;
+            confidenceFill.style.width = '0%';
+            
+            setTimeout(() => {
+                confidenceFill.style.width = targetWidth;
+            }, 500);
+        });
+        
+        // Chart modal functions
+        function openChartModal(chartType, title) {
+            const modal = document.getElementById('chartModal');
+            const modalImg = document.getElementById('modalChartImage');
+            const modalTitle = document.getElementById('modalChartTitle');
+            
+            // Get the source image
+            const sourceImg = event.target;
+            modalImg.src = sourceImg.src;
+            modalTitle.textContent = title;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+        
+        function closeChartModal() {
+            const modal = document.getElementById('chartModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+        
+        // Close modal when clicking outside the content
+        window.onclick = function(event) {
+            const modal = document.getElementById('chartModal');
+            if (event.target === modal) {
+                closeChartModal();
+            }
+        }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeChartModal();
+            }
+        });
+    </script>
+</body>
+</html>

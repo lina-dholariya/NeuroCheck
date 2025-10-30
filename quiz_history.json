@@ -1,0 +1,178 @@
+{
+  "d9051c81-b6f2-4598-8558-4d5f1ab97026": [
+    {
+      "user_id": "d9051c81-b6f2-4598-8558-4d5f1ab97026",
+      "date": "October 06, 2025 at 03:46 PM",
+      "severity": "Mild",
+      "confidence": 95.92292768075919,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-06T15:46:33.045201"
+    }
+  ],
+  "e67c9b06-fdb1-4e3d-936c-97ad06402529": [
+    {
+      "user_id": "e67c9b06-fdb1-4e3d-936c-97ad06402529",
+      "date": "October 09, 2025 at 08:47 PM",
+      "severity": "Mild",
+      "confidence": 86.35357534965819,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-09T20:47:41.570892"
+    }
+  ],
+  "674bb170-0e02-4178-b550-15560ca4b8e9": [
+    {
+      "user_id": "674bb170-0e02-4178-b550-15560ca4b8e9",
+      "date": "October 10, 2025 at 09:22 AM",
+      "severity": "Mild",
+      "confidence": 99.19307704562908,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-10T09:22:34.105528"
+    }
+  ],
+  "d2af796b-2a97-45cb-b758-36c7112915dc": [
+    {
+      "user_id": "d2af796b-2a97-45cb-b758-36c7112915dc",
+      "date": "October 11, 2025 at 11:50 AM",
+      "severity": "Mild",
+      "confidence": 97.9807397368915,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-11T11:50:21.803795"
+    }
+  ],
+  "e5f23b31-7de6-47a4-bc15-76e08d3acc9c": [
+    {
+      "user_id": "e5f23b31-7de6-47a4-bc15-76e08d3acc9c",
+      "date": "October 11, 2025 at 12:48 PM",
+      "severity": "Mild",
+      "confidence": 88.99319753830534,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-11T12:48:43.306353"
+    }
+  ],
+  "7e13494d-e648-4d49-8bed-60af1a7be7c8": [
+    {
+      "user_id": "7e13494d-e648-4d49-8bed-60af1a7be7c8",
+      "date": "October 11, 2025 at 02:10 PM",
+      "severity": "Mild",
+      "confidence": 97.96999582762797,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-11T14:10:40.652061"
+    }
+  ],
+  "8c763397-7b3d-4c63-955a-e4fcc33e8671": [
+    {
+      "user_id": "8c763397-7b3d-4c63-955a-e4fcc33e8671",
+      "date": "October 30, 2025 at 04:47 PM",
+      "severity": "Minimal",
+      "confidence": 78.49858103710314,
+      "recommendation": "Excellent! Keep up with your current wellness routine.",
+      "timestamp": "2025-10-30T16:47:08.912767"
+    },
+    {
+      "user_id": "8c763397-7b3d-4c63-955a-e4fcc33e8671",
+      "date": "October 30, 2025 at 04:48 PM",
+      "severity": "Mild",
+      "confidence": 73.10606654083209,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-30T16:48:24.836106"
+    }
+  ],
+  "c0937ad9-373f-440a-bd19-58f2c1be3747": [
+    {
+      "user_id": "c0937ad9-373f-440a-bd19-58f2c1be3747",
+      "date": "October 30, 2025 at 04:49 PM",
+      "severity": "Mild",
+      "confidence": 98.29323275847227,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-30T16:49:53.022563"
+    }
+  ],
+  "db4e9145-0e47-4360-b771-0eac19ecda10": [
+    {
+      "user_id": "db4e9145-0e47-4360-b771-0eac19ecda10",
+      "date": "October 30, 2025 at 04:56 PM",
+      "severity": "Mild",
+      "confidence": 97.2873761867802,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-30T16:56:51.582981"
+    }
+  ],
+  "c6a5cc84-e738-40d5-afe5-1f63af23e714": [
+    {
+      "user_id": "c6a5cc84-e738-40d5-afe5-1f63af23e714",
+      "date": "October 30, 2025 at 05:02 PM",
+      "severity": "Mild",
+      "confidence": 96.02976103834983,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-30T17:02:30.982794"
+    }
+  ],
+  "47fffe81-6c21-494d-b224-4a6ab9562289": [
+    {
+      "user_id": "47fffe81-6c21-494d-b224-4a6ab9562289",
+      "date": "October 30, 2025 at 05:08 PM",
+      "severity": "Minimal",
+      "confidence": 98.49999514849361,
+      "recommendation": "Excellent! Keep up with your current wellness routine.",
+      "timestamp": "2025-10-30T17:08:22.788701"
+    },
+    {
+      "user_id": "47fffe81-6c21-494d-b224-4a6ab9562289",
+      "date": "October 30, 2025 at 05:08 PM",
+      "severity": "Mild",
+      "confidence": 94.99209941790232,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-30T17:08:57.347025"
+    }
+  ],
+  "3dd0ac22-2e63-45d4-be83-028f8c11c79c": [
+    {
+      "user_id": "3dd0ac22-2e63-45d4-be83-028f8c11c79c",
+      "date": "October 30, 2025 at 05:14 PM",
+      "severity": "Minimal",
+      "confidence": 94.99991451271234,
+      "recommendation": "Excellent! Keep up with your current wellness routine.",
+      "timestamp": "2025-10-30T17:14:53.218280"
+    }
+  ],
+  "5552d50c-1526-4378-862f-889a52496638": [
+    {
+      "user_id": "5552d50c-1526-4378-862f-889a52496638",
+      "date": "October 30, 2025 at 05:22 PM",
+      "severity": "Mild",
+      "confidence": 75.93089693924576,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-30T17:22:09.575531"
+    }
+  ],
+  "4d407e31-dbc2-4320-b802-148847e415d2": [
+    {
+      "user_id": "4d407e31-dbc2-4320-b802-148847e415d2",
+      "date": "October 30, 2025 at 05:23 PM",
+      "severity": "Mild",
+      "confidence": 95.9802516222912,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-30T17:23:30.916032"
+    }
+  ],
+  "4e3f2174-e7d3-44c6-b96c-4c4cf5c922a7": [
+    {
+      "user_id": "4e3f2174-e7d3-44c6-b96c-4c4cf5c922a7",
+      "date": "October 30, 2025 at 05:28 PM",
+      "severity": "Mild",
+      "confidence": 98.48241226085428,
+      "recommendation": "Consider talking to a friend, family member, or mental health professional. Practice self-care techniques.",
+      "timestamp": "2025-10-30T17:28:31.473965"
+    }
+  ],
+  "d587bed6-bffa-4b3a-a596-d59a8217033c": [
+    {
+      "user_id": "d587bed6-bffa-4b3a-a596-d59a8217033c",
+      "date": "October 30, 2025 at 05:54 PM",
+      "severity": "Moderate",
+      "confidence": 74.37040669849978,
+      "recommendation": "Strongly recommend consulting with a mental health professional. Consider therapy or counseling.",
+      "timestamp": "2025-10-30T17:54:02.658741"
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment - NeuroCheck</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="logo">
+                <span>NeuroCheck</span>
+            </a>
+            <nav class="nav">
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <a href="/logout" class="nav-link">Sign Out</a>
+            </nav>
+        </header>
+        
+        <main class="main-content">
+            <div class="auth-container">
+                <div class="auth-card" style="max-width: 600px;">
+                    <h1 class="auth-title">Mental Health Assessment</h1>
+                    <p class="auth-subtitle">Please answer the following questions about your experiences over the past two weeks to help us understand your current mental well-being.</p>
+                    
+                    {% if error %}
+                    <div class="error-message" style="color: red; margin-bottom: 15px; padding: 10px; background-color: #ffeeee; border-radius: 5px;">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                    
+                    <div id="form-error" style="color: red; margin-bottom: 15px; padding: 10px; background-color: #ffeeee; border-radius: 5px; display: none;"></div>
+                    
+                    <form action="/predict" method="post" class="auth-form">
+                        
+                        <div class="detail-section">
+                            <h4>Lifestyle Factors</h4>
+                            <div class="form-group">
+                                <label class="form-label">Average hours of sleep per night</label>
+                                <input type="number" name="sleep_hours" class="form-input" required step="0.5" min="0" max="24" placeholder="e.g., 7.5">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Average hours of screen time per day</label>
+                                <input type="number" name="screen_time" class="form-input" required step="0.5" min="0" max="24" placeholder="e.g., 4.5">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">How would you rate your diet quality?</label>
+                                <select name="diet" class="form-input" required>
+                                    <option value="">Select an option</option>
+                                    <option value="0">Poor - Mostly processed foods</option>
+                                    <option value="1">Average - Some healthy choices</option>
+                                    <option value="2">Good - Mostly nutritious foods</option>
+                                    <option value="3">Excellent - Well-balanced nutrition</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">How often do you exercise?</label>
+                                <select name="exercise" class="form-input" required>
+                                    <option value="">Select an option</option>
+                                    <option value="0">Rarely or never</option>
+                                    <option value="1">1-2 times per week</option>
+                                    <option value="2">3-4 times per week</option>
+                                    <option value="3">5+ times per week</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">How socially active have you been?</label>
+                                <select name="social_activity" class="form-input" required>
+                                    <option value="">Select an option</option>
+                                    <option value="0">Very isolated - Minimal interaction</option>
+                                    <option value="1">Some interaction - Occasional social contact</option>
+                                    <option value="2">Socially active - Regular social engagement</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h4>Emotional Well-being</h4>
+                            <div class="form-group">
+                                <label class="form-label">What has been your general mood?</label>
+                                <select name="mood" class="form-input" required>
+                                    <option value="">Select an option</option>
+                                    <option value="0">Sad, anxious, or stressed</option>
+                                    <option value="1">Neutral or mixed</option>
+                                    <option value="2">Happy, calm, or content</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Feeling nervous, anxious, or on edge</label>
+                                <select name="anxiety1" class="form-input" required>
+                                    <option value="">Select an option</option>
+                                    <option value="0">Not at all</option>
+                                    <option value="1">Several days</option>
+                                    <option value="2">More than half the days</option>
+                                    <option value="3">Nearly every day</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Not being able to stop or control worrying</label>
+                                <select name="anxiety2" class="form-input" required>
+                                    <option value="">Select an option</option>
+                                    <option value="0">Not at all</option>
+                                    <option value="1">Several days</option>
+                                    <option value="2">More than half the days</option>
+                                    <option value="3">Nearly every day</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Little interest or pleasure in doing things</label>
+                                <select name="depression1" class="form-input" required>
+                                    <option value="">Select an option</option>
+                                    <option value="0">Not at all</option>
+                                    <option value="1">Several days</option>
+                                    <option value="2">More than half the days</option>
+                                    <option value="3">Nearly every day</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Feeling down, depressed, or hopeless</label>
+                                <select name="depression2" class="form-input" required>
+                                    <option value="">Select an option</option>
+                                    <option value="0">Not at all</option>
+                                    <option value="1">Several days</option>
+                                    <option value="2">More than half the days</option>
+                                    <option value="3">Nearly every day</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Complete Assessment</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

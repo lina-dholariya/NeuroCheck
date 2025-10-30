@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - NeuroCheck</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="logo">
+                <span>NeuroCheck</span>
+            </a>
+            <nav class="nav">
+                <div class="user-info-corner" onclick="window.location.href='/profile'" title="View Profile">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-details">
+                        <span class="user-name">{{ user.name }}</span>
+                        <span class="user-email">{{ user.email }}</span>
+                    </div>
+                    <div class="user-actions">
+                        <a href="/logout" class="nav-link">Sign Out</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <main class="main-content">
+            <div class="dashboard-container">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Your Mental Health Dashboard</h1>
+                    <p class="dashboard-subtitle">Track your wellness journey and discover insights about your emotional well-being</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">📋</div>
+                        <h3>Mental Health Assessment</h3>
+                        <p>Take a comprehensive quiz to evaluate your current mental well-being and receive personalized insights.</p>
+                        <a href="/quiz" class="btn btn-primary">Start Assessment</a>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">📊</div>
+                        <h3>Progress Tracking</h3>
+                        <p>View your mental health progress over time with detailed charts and personalized insights.</p>
+                        <a href="/progress" class="btn btn-primary">View Progress</a>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">💬</div>
+                        <h3>Ask NeuroCheck (LLM)</h3>
+                        <p>Chat to get intent-aware replies and FAQ answers about mental health.</p>
+                        <div id="chat-widget" class="chat-widget" title="Click to open chat">
+                            <div class="chat-header">
+                                <span>NeuroCheck Chatbot</span>
+                                <button id="chat-open" class="chat-open-btn" aria-label="Open chat">⤢</button>
+                                <button id="chat-close" class="chat-close-btn" aria-label="Close chat">✕</button>
+                            </div>
+                            <div id="chat-box" class="chat-box"></div>
+                            <div class="chat-input-row">
+                                <input id="chat-input" type="text" class="form-input" placeholder="Type your message...">
+                                <button id="chat-send" class="btn btn-secondary">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mental Health Tips Section -->
+                <section class="tips-section">
+                    <h2>💡 Wellness Tips</h2>
+                    <p>Discover evidence-based strategies to maintain and improve your mental health and overall well-being.</p>
+                    
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <h4>🌙 Quality Sleep</h4>
+                            <p>Prioritize 7-9 hours of restorative sleep each night. Establish a consistent bedtime routine and create a calming sleep environment free from digital distractions.</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h4>🏃‍♂️ Physical Activity</h4>
+                            <p>Engage in regular exercise to release endorphins and reduce stress. Even 30 minutes of moderate activity daily can significantly improve mood and cognitive function.</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h4>🍎 Balanced Nutrition</h4>
+                            <p>Maintain a nutritious diet rich in whole foods, fruits, vegetables, and omega-3 fatty acids. Stay hydrated and limit processed foods and excessive caffeine.</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h4>🤝 Social Connection</h4>
+                            <p>Nurture meaningful relationships with friends, family, and community. Regular social interaction provides emotional support and reduces feelings of isolation.</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h4>🧘 Mindfulness Practice</h4>
+                            <p>Incorporate mindfulness techniques like meditation, deep breathing, or yoga into your daily routine to reduce stress and improve emotional regulation.</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h4>📱 Digital Wellness</h4>
+                            <p>Set healthy boundaries with technology use. Take regular breaks from screens and be mindful of how social media affects your mental state.</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h4>🎯 Goal Setting</h4>
+                            <p>Break large objectives into manageable, achievable steps. Celebrate small victories and maintain realistic expectations for yourself.</p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <h4>🌿 Nature Connection</h4>
+                            <p>Spend time outdoors and connect with nature. Research shows that exposure to natural environments reduces stress and improves mental clarity.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Quiz History Section -->
+                <section class="history-section">
+                    <h2>📊 Assessment History</h2>
+                    <p>Review your previous mental health assessments and track your progress over time to identify patterns and improvements.</p>
+                    
+                    {% if quiz_history %}
+                        {% for result in quiz_history %}
+                        <div class="history-item">
+                            <div class="history-date">{{ result.date }}</div>
+                            <div class="history-severity severity-{{ result.severity.lower() }}">
+                                {{ result.severity }} Risk Level
+                            </div>
+                            <div><strong>Confidence Score:</strong> {{ "%.1f"|format(result.confidence) }}%</div>
+                            <div><strong>Recommendation:</strong> {{ result.recommendation }}</div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="history-item">
+                            <p>No assessment history available yet. Take your first mental health assessment to begin tracking your wellness journey!</p>
+                        </div>
+                    {% endif %}
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>

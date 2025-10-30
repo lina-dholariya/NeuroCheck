@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - NeuroCheck</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="logo">
+                <span>NeuroCheck</span>
+            </a>
+            <nav class="nav">
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <div class="user-info-corner" onclick="window.location.href='/profile'" title="View Profile">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-details">
+                        <span class="user-name">{{ user.name }}</span>
+                        <span class="user-email">{{ user.email }}</span>
+                    </div>
+                    <div class="user-actions">
+                        <a href="/logout" class="nav-link">Sign Out</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <main class="main-content">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <h1 class="profile-title">Your Profile</h1>
+                    <p class="profile-subtitle">View your account information</p>
+                </div>
+                
+                <div class="profile-content">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <div class="avatar-circle">👤</div>
+                        </div>
+                        
+                        <div class="profile-info">
+                            <h3 class="profile-name">{{ user.name }}</h3>
+                            <p class="profile-email">{{ user.email }}</p>
+                            <p class="profile-joined">Member since {{ user.created_at.strftime('%B %d, %Y') if user.created_at else 'Recently' }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-details">
+                        <div class="detail-section">
+                            <h4>Account Information</h4>
+                            <div class="detail-grid">
+                                <div class="detail-item">
+                                    <span class="detail-label">Full Name</span>
+                                    <span class="detail-value">{{ user.name }}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Email Address</span>
+                                    <span class="detail-value">{{ user.email }}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Date of Birth</span>
+                                    <span class="detail-value">{{ user.birthday if user.birthday else 'Not provided' }}</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Age</span>
+                                    <span class="detail-value">{{ user.age if user.age else 'Not provided' }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html> 
